@@ -1,22 +1,21 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel{
     public int x, y, s, row, col;
-    public int screenRow= 48*8 , screenCol = 48*13;
+    public static int screenRow= 48*8 , screenCol = 48*13;
+    public static int x_prime, y_prime;
 
     public GamePanel(){
-        this.x = JLabel.CENTER;
-        this.y = JLabel.TOP;
         this.row = screenRow;
         this.col = screenCol;
         this.s = 20;
         this.setBounds(60, 48,screenCol,screenRow);
         this.setBackground(new Color(0x123456));
-        
+        x_prime = this.getWidth()+1;
+        y_prime = this.getHeight()+1;
     }
     @Override
     protected void paintComponent(Graphics g){

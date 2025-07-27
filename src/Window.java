@@ -2,12 +2,12 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import javax.swing.BorderFactory;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 public class Window{
     public static final int HEIGHT = 48 * 16;
@@ -15,7 +15,7 @@ public class Window{
     public final int BUTTONHEIGHT = 10, BUTTONWIDTH = 8;
     public JFrame frame;
     public JLabel name;
-    public Grid grid  = new Grid(this);
+
     public GamePanel gamePanel = new GamePanel();
 
     public Window(JFrame frame){
@@ -46,22 +46,24 @@ public class Window{
         header.add(name);
         this.frame.add(header);
         this.frame.add(this.gamePanel);
-        JPanel bp = new JPanel();
-        
-        bp.setBounds(this.gamePanel.getWidth()+1,this.gamePanel.getHeight()+1,this.gamePanel.screenCol,this.gamePanel.screenRow);
-        Border b = BorderFactory.createLineBorder(Color.WHITE);
-        bp.setBorder(b);
-        //bp.setLayout(null);
-        
-        JButton s = new JButton();
-        JButton p = new JButton();
-        JButton r = new JButton();
-                
-        StartButton sb = new StartButton(s,"Start", this,bp );
-        PauseButton pb = new PauseButton(p, "Pause", this, bp);
-        ResetButton rb = new ResetButton(r, "Reset", this, bp);
 
-           
+        JPanel bp = new JPanel();
+        bp.setBounds(60, GamePanel.y_prime, GamePanel.screenCol-ButtonManager.X,GamePanel.screenRow-ButtonManager.Y);
+        // Border b = BorderFactory.createLineBorder(Color.WHITE);
+        // bp.setBorder(b);
+        bp.setBackground(new Color(0x123456));
+        bp.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+                
+        StartButton sb = new StartButton(new JButton(),"Start",bp, this,gbc);
+        sb.addButtonToPanel();
+        PauseButton pb = new PauseButton(new JButton(), "Pause", bp,this, gbc);
+        pb.addButtonToPanel();
+        ResetButton rb = new ResetButton(new JButton(), "Reset", bp,this, gbc);
+        rb.addButtonToPanel();
+
+        this.frame.add(bp);
         this.frame.setVisible(true);
 
     }
