@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 public class Window{
     public static final int HEIGHT = 48 * 16;
     public static final int  WIDTH = 48 * 13;

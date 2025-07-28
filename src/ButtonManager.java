@@ -1,9 +1,7 @@
-
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 public class ButtonManager {
     public JButton button;
     public JPanel buttonPanel;
@@ -26,7 +24,7 @@ public class ButtonManager {
 
         this.button.setFont(new Font("BISON",Font.PLAIN,13));
         
-        this.button.setBackground(new Color(0x123456));
+        this.button.setBackground(Color.green);
 
         return this.button;
         

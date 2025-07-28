@@ -1,6 +1,8 @@
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+
 public class StartButton extends Button{
     public Window window ;
     public JButton sb;
@@ -21,7 +23,7 @@ public class StartButton extends Button{
     @Override
     public void addButtonToPanel(){
         this.gbc.fill  = GridBagConstraints.HORIZONTAL;
-        this.gbc.weightx = 1;
+        this.gbc.weightx = 3;
         this.gbc.gridx = 0;
         this.gbc.gridy = 0;
 

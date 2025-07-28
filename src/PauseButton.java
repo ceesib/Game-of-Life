@@ -1,6 +1,7 @@
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
 public class PauseButton extends Button{
     public Window window ;
     public JButton pb;
@@ -21,7 +22,7 @@ public class PauseButton extends Button{
     @Override
     public void addButtonToPanel(){
         this.gbc.fill  = GridBagConstraints.HORIZONTAL;
-        this.gbc.weightx = 1;
+        this.gbc.weightx = 3;
         this.gbc.gridx = 2;
         this.gbc.gridy = 0;
         this.buttonPanel.add(this.pb,this.gbc);
