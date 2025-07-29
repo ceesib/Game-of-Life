@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
@@ -66,10 +65,8 @@ public class GamePanel extends JPanel implements MouseListener{
 
         Cell cell = new Cell((int)x,(int)y);
         this.add(cell);
-        cell.paint(this.g_object);
-        //cell.repaint();
-        cell.setLayout(null);
-     
+        cell.repaint();
+      
     }
     @Override
     public void mousePressed(MouseEvent e) {
@@ -80,11 +77,10 @@ public class GamePanel extends JPanel implements MouseListener{
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+
     }
     @Override
     public void mouseEntered(MouseEvent e) {
-        double x = MouseInfo.getPointerInfo().getLocation().getX();
-        double y = MouseInfo.getPointerInfo().getLocation().getY();
         //System.out.printf("x: %s y: %s \n",x,y);
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
