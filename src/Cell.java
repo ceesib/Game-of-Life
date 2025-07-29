@@ -9,9 +9,11 @@ public class Cell extends JPanel {
     public int x,y;
     public static final int CWIDTH = 20;
     public static final int CHEIGHT= 20;
-    public Cell(int x,int y){
+    public boolean state;
+    public Cell(int x,int y, boolean state){
         this.x = x;
         this.y = y;
+        this.state = state;
         this.setSize(new Dimension(CWIDTH,CHEIGHT));
     }
     @Override
@@ -19,8 +21,8 @@ public class Cell extends JPanel {
         super.paintComponent(g);
         Graphics g2 = (Graphics2D) g;
         g2.setColor(Color.yellow.darker());
-        g2.fillRect(1,1, CWIDTH-2, CHEIGHT-2);
-        this.setLocation(this.x*20, this.y*20);
+        g2.fillRect(1,1, 18, 18);
+        this.setLocation(this.x*CWIDTH, this.y*CHEIGHT);
     }
 
   

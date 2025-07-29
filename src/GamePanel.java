@@ -1,9 +1,11 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements MouseListener{
@@ -12,7 +14,8 @@ public class GamePanel extends JPanel implements MouseListener{
     public static int x_prime, y_prime;
     public static  boolean flag = false;
     public final int W= 31, H= 13;
-    public Graphics2D g_object;
+    public static Map<String, Cell> cells = new HashMap<>();
+
     public GamePanel(){
         this.row = screenRow;
         this.col = screenCol;
@@ -22,9 +25,6 @@ public class GamePanel extends JPanel implements MouseListener{
         x_prime = this.getWidth()+1;
         y_prime = this.getHeight()+1;
         this.addMouseListener(this);
-    }
-    public void setGraphics(Graphics2D g){
-        this.g_object = g;
     }
     public void drawGrid(Graphics g){
         g.setColor(Color.GREEN);
@@ -46,8 +46,6 @@ public class GamePanel extends JPanel implements MouseListener{
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         drawGrid(g);
-        Graphics2D g2 = (Graphics2D) g;
-        setGraphics(g2);
     }
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -57,15 +55,39 @@ public class GamePanel extends JPanel implements MouseListener{
 
         double x = e.getX()/gx;
         double y = e.getY()/gy;
-
-        System.out.printf("x: %s y: %s gx: %s gy: %s \n",x,y,gx,gy);
        
         x = Math.floor(x);
         y = Math.floor(y);
 
-        Cell cell = new Cell((int)x,(int)y);
-        this.add(cell);
-        cell.repaint();
+        Integer x_ = (int) x;
+        Integer y_ = (int) y;
+        Integer[] p = {x_,y_};
+
+        String key = Arrays.toString(p);
+        if(cells.containsKey(key)){
+           // System.out.printf("cells contain {%s ,%s} \n",x_,y_);
+            Cell cell = cells.get(key);
+            if(cell.state){
+                this.remove(cell);
+                this.repaint();
+                cells.remove(key);
+            }
+        }
+        else{
+            Cell cell = new Cell(x_, y_, false);
+            this.add(cell);
+            cell.repaint();
+            cell.state = true;
+            cells.put(key,cell);
+        }
+
+        // List<String> s= new ArrayList<>();
+
+        // for(Map.Entry<String,Cell> c: cells.entrySet()){
+        //     s.add(c.getKey());
+        // }
+        // System.out.println(s);
+       
       
     }
     @Override
