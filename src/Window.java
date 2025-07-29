@@ -38,7 +38,7 @@ public class Window{
 
         name.setForeground(Color.GREEN);
 
-        name.setFont(new Font("MV Boli",Font.PLAIN,30));
+        name.setFont(new Font("BISON",Font.PLAIN,30));
         name.setVerticalAlignment(JLabel.TOP);
         
         JPanel header = new JPanel();

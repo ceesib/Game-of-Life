@@ -36,12 +36,6 @@ public class GamePanel extends JPanel implements MouseListener{
             g.drawLine(x+j*s,y,x+j*s,y+s*row);
         }
     }
-    // public void paintCell(Graphics2D g, Cell cell){
-    //     System.out.println("Trying to paint a yellow square");
-    //     g.setColor(Color.YELLOW);
-    //     g.fillRect(0,0, Cell.WIDTH,Cell.HEIGHT);
-
-    // }
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -67,28 +61,24 @@ public class GamePanel extends JPanel implements MouseListener{
         if(cells.containsKey(key)){
            // System.out.printf("cells contain {%s ,%s} \n",x_,y_);
             Cell cell = cells.get(key);
-            if(cell.state){
-                this.remove(cell);
-                this.repaint();
-                cells.remove(key);
-            }
+            this.remove(cell);
+            this.repaint();
+            cells.remove(key);
+            Population.neighbour.remove(key);
+            System.out.println(Population.neighbour);
+            
         }
         else{
             Cell cell = new Cell(x_, y_, false);
             this.add(cell);
-            cell.repaint();
+            this.repaint();
             cell.state = true;
             cells.put(key,cell);
+            Population population = new Population(cells);
+            population.createNeighbours();
         }
+   
 
-        // List<String> s= new ArrayList<>();
-
-        // for(Map.Entry<String,Cell> c: cells.entrySet()){
-        //     s.add(c.getKey());
-        // }
-        // System.out.println(s);
-       
-      
     }
     @Override
     public void mousePressed(MouseEvent e) {
