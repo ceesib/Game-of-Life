@@ -3,7 +3,6 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
@@ -25,6 +24,7 @@ public class GamePanel extends JPanel implements MouseListener{
         x_prime = this.getWidth()+1;
         y_prime = this.getHeight()+1;
         this.addMouseListener(this);
+        Population p = new Population();
     }
     public void drawGrid(Graphics g){
         g.setColor(Color.GREEN);
@@ -57,13 +57,13 @@ public class GamePanel extends JPanel implements MouseListener{
         Integer y_ = (int) y;
         Integer[] p = {x_,y_};
 
-        String key = Arrays.toString(p);
-        if(cells.containsKey(key)){
+        String key = x_+" "+y_;
+        if(Population.population.containsKey(key)){
            // System.out.printf("cells contain {%s ,%s} \n",x_,y_);
-            Cell cell = cells.get(key);
+            Cell cell = Population.population.get(key);
             this.remove(cell);
             this.repaint();
-            cells.remove(key);
+            Population.population.remove(key);
             Population.neighbour.remove(key);
             System.out.println(Population.neighbour);
             
@@ -73,9 +73,9 @@ public class GamePanel extends JPanel implements MouseListener{
             this.add(cell);
             this.repaint();
             cell.state = true;
-            cells.put(key,cell);
-            Population population = new Population(cells);
-            population.createNeighbours();
+            Population.population.put(key,cell);
+            Population.createNeighbours();
+
         }
    
 
