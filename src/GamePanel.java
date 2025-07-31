@@ -75,7 +75,6 @@ public class GamePanel extends JPanel implements MouseListener{
             cell.state = true;
             Population.population.put(key,cell);
             Population.createNeighbours();
-
         }
    
 
