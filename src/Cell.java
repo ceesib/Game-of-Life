@@ -11,7 +11,7 @@ public class Cell extends JPanel {
     public static final int CWIDTH = 20;
     public static final int CHEIGHT= 20;
     public boolean state;
-    public Cell(int x,int y, boolean state){
+    public Cell(int y,int x, boolean state){
         this.x = x;
         this.y = y;
         this.state = state;
@@ -26,9 +26,11 @@ public class Cell extends JPanel {
         this.setLocation(this.x*CWIDTH, this.y*CHEIGHT);
     }
 
-    public Boolean getState(int x, int y){
-        if(Population.population.containsKey(x+" "+y)) {
-            Cell c = Population.population.get(x+" "+y);
+    public Boolean getState(int y, int x){
+        if(Population.population.containsKey(y+" "+x)) {
+            //System.out.printf("population contain (%s ,%s) \n",y,x);
+            Cell c = Population.population.get(y+" "+x);
+            //System.out.println(c.toString());
             return c.state;
         }
         return false;
@@ -36,7 +38,7 @@ public class Cell extends JPanel {
 
     @Override
     public String toString(){
-        return "(y,x): "+"("+y+","+x+")"+ " with state: "+ state;  
+        return "(y,x): "+"("+this.y+","+this.x+")"+ " with state: "+ this.state;  
     }
 
   

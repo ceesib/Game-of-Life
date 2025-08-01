@@ -25,7 +25,7 @@ public class StartButton extends Button{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                Population.nextGen();
+                Population.nextGeneration();
             }
 
         });
