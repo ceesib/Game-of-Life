@@ -3,8 +3,6 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements MouseListener{
@@ -13,7 +11,6 @@ public class GamePanel extends JPanel implements MouseListener{
     public static int x_prime, y_prime;
     public static  boolean flag = false;
     public final int W= 31, H= 13;
-    public static Map<String, Cell> cells = new HashMap<>();
 
     public GamePanel(){
         this.row = screenRow;
@@ -37,11 +34,13 @@ public class GamePanel extends JPanel implements MouseListener{
             g.drawLine(x+j*s,y,x+j*s,y+s*row);
         }
     }
+    
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         drawGrid(g);
     }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
@@ -56,54 +55,45 @@ public class GamePanel extends JPanel implements MouseListener{
 
         Integer x_ = (int) x;
         Integer y_ = (int) y;
-        Integer[] p = {x_,y_};
 
         String key = y_+" "+x_;
+
         if(Population.population.containsKey(key)){
-           // System.out.printf("cells contain {%s ,%s} \n",x_,y_);
             Cell cell = Population.population.get(key);
             this.remove(cell);
             this.repaint();
             cell.state = false;
             Population.population.remove(key);
             Population.neighbour.remove(key);
-            //System.out.println(Population.neighbour);
             
         }
         else{
-            System.out.printf("create cell (%s ,%s) \n",y_,x_);
+
             Cell cell = new Cell(y_, x_, true);
             this.add(cell);
             this.repaint();
             Population.population.put(key,cell);
             Population.neighbour.clear();
-            //System.out.println(Population.population);
             Population.createNeighbours();
         }
-   
-
     }
+
     @Override
     public void mousePressed(MouseEvent e) {
         // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
     }
     @Override
     public void mouseReleased(MouseEvent e) {
         // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
-
     }
     @Override
     public void mouseEntered(MouseEvent e) {
         //System.out.printf("x: %s y: %s \n",x,y);
         // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
     }
     @Override
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
     }
     
 }

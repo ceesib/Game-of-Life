@@ -28,9 +28,7 @@ public class Cell extends JPanel {
 
     public Boolean getState(int y, int x){
         if(Population.population.containsKey(y+" "+x)) {
-            //System.out.printf("population contain (%s ,%s) \n",y,x);
             Cell c = Population.population.get(y+" "+x);
-            //System.out.println(c.toString());
             return c.state;
         }
         return false;
