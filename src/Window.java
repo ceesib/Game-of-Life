@@ -47,7 +47,7 @@ public class Window{
         header.add(name);
         this.frame.add(header);
         this.frame.add(this.gamePanel);
-
+       
         JPanel bp = new JPanel();
         bp.setBounds(60, GamePanel.y_prime, GamePanel.screenCol-ButtonManager.X,GamePanel.screenRow-ButtonManager.Y);
         // Border b = BorderFactory.createLineBorder(Color.WHITE);

@@ -7,7 +7,7 @@ public class Population{
     public  static Map<String , Cell> population;
     public static  Map<String,Queue<Cell>> neighbour;
     public static GamePanel gamePanel;
-    
+
     public Population(GamePanel gp){
         gamePanel = gp;
         population = new HashMap<>();
@@ -87,9 +87,17 @@ public class Population{
                     population.put(cell_state.getKey(), cell);
                     gamePanel.add(cell);
                     gamePanel.repaint();
+                    
                 }
 
             }
         }
+    }
+    public static void reset(){
+        Population.population.clear();
+        Population.neighbour.clear();
+        Game.cellState.clear();
+        gamePanel.removeAll();
+        gamePanel.repaint();
     }
 }

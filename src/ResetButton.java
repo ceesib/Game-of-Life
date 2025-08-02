@@ -1,4 +1,6 @@
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -17,7 +19,13 @@ public class ResetButton extends Button{
     }
     @Override
     public void pressed(){
-        this.button.addActionListener(s -> System.out.printf("%s pressed \n",super.name));
+        this.button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e){
+            Population.reset();
+            }
+        });
     }
     @Override
     public void addButtonToPanel(){
