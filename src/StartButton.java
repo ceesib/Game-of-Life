@@ -25,11 +25,12 @@ public class StartButton extends Button{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO Auto-generated method stub
-                Population.nextGeneration();
+                Thread genThread = new Thread(new GameThread());
+                genThread.start();
             }
 
         });
-       // this.button.addActionListener(s -> System.out.printf("%s pressed \n",super.name));
+       
     }
     @Override
     public void addButtonToPanel(){

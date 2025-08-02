@@ -12,9 +12,9 @@ public class Population{
         gamePanel = gp;
         population = new HashMap<>();
         neighbour = new HashMap<>();
-        Game game =new Game();
-        
+        Game game =new Game();   
     }
+    
     public static void createNeighbours(){
         // check all 8 directions
         int[][] d = {{-1,0},{1,0},{0,-1},{0,1},{-1,-1},{-1,1},{1,-1},{1,1}};
@@ -78,7 +78,7 @@ public class Population{
                             gamePanel.remove(cell);
                             gamePanel.repaint();
                     }
-                }
+                }  
             }
             else{
                 if(cell_state.getValue()) {
