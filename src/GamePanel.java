@@ -3,7 +3,10 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class GamePanel extends JPanel implements MouseListener{
     public int x, y, s, row, col;
@@ -11,6 +14,7 @@ public class GamePanel extends JPanel implements MouseListener{
     public static int x_prime, y_prime;
     public static  boolean flag = false;
     public final int W= 31, H= 13;
+    public Queue<Cell> addCells, removeCells;
 
     public GamePanel(){
         this.row = screenRow;
@@ -22,6 +26,8 @@ public class GamePanel extends JPanel implements MouseListener{
         y_prime = this.getHeight()+1;
         this.addMouseListener(this);
         Population p = new Population(this);
+        this.addCells = new LinkedList<>();
+        this.removeCells = new LinkedList<>();
       
     }
     public void drawGrid(Graphics g){
@@ -60,22 +66,34 @@ public class GamePanel extends JPanel implements MouseListener{
 
         if(Population.population.containsKey(key)){
             Cell cell = Population.population.get(key);
-            this.remove(cell);
-            this.repaint();
+            this.removeCells.offer(cell);
             cell.state = false;
             Population.population.remove(key);
             Population.neighbour.remove(key);
             
         }
         else{
-
             Cell cell = new Cell(y_, x_, true);
-            this.add(cell);
-            this.repaint();
+            this.addCells.offer(cell);
             Population.population.put(key,cell);
             Population.neighbour.clear();
             Population.createNeighbours();
         }
+        
+        for(Cell c : this.addCells){
+            this.add(c);
+        }
+        for(Cell c: this.removeCells){
+            this.remove(c);
+        }
+
+        SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run(){
+                GamePanel.this.repaint();
+            }
+        });
+
     }
 
     @Override

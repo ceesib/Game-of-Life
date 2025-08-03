@@ -3,16 +3,22 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import javax.swing.SwingUtilities;
+
 public class Population{
     public  static Map<String , Cell> population;
     public static  Map<String,Queue<Cell>> neighbour;
     public static GamePanel gamePanel;
+    public static Queue<Cell> addCells, removeCells;
+
 
     public Population(GamePanel gp){
         gamePanel = gp;
         population = new HashMap<>();
         neighbour = new HashMap<>();
         Game game =new Game();   
+        addCells = new LinkedList<>();
+        removeCells = new LinkedList<>();
     }
     
     public static void createNeighbours(){
@@ -75,8 +81,7 @@ public class Population{
                     if(cell.state){
                             cell.state = false;
                             population.remove(cell_state.getKey());
-                            gamePanel.remove(cell);
-                            gamePanel.repaint();
+                            removeCells.offer(cell);
                     }
                 }  
             }
@@ -85,19 +90,34 @@ public class Population{
                     String[] yx = cell_state.getKey().split(" ");
                     Cell cell = new Cell(Integer.parseInt(yx[0]), Integer.parseInt(yx[1]), true);
                     population.put(cell_state.getKey(), cell);
-                    gamePanel.add(cell);
-                    gamePanel.repaint();
-                    
+                    addCells.offer(cell);
                 }
 
             }
         }
+        for(Cell e: addCells){
+            gamePanel.add(e);
+        }
+        for(Cell e: removeCells){
+            gamePanel.remove(e);
+        }
+        SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run(){
+                gamePanel.repaint();
+            }
+        });
     }
     public static void reset(){
         Population.population.clear();
         Population.neighbour.clear();
         Game.cellState.clear();
-        gamePanel.removeAll();
-        gamePanel.repaint();
+        SwingUtilities.invokeLater(new Runnable(){
+            @Override
+            public void run(){
+                gamePanel.removeAll();
+                gamePanel.repaint();
+            }
+        });
     }
 }
